@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'data.dart';
 
@@ -104,7 +103,7 @@ class HomePort extends StatelessWidget {
                   padding: const EdgeInsets.fromLTRB(15, 0, 0, 10),
                   child: Text(
                     _photo[index].text,
-                    style: const TextStyle(
+                    style:  const TextStyle(
                       color: Colors.white,
                       fontSize: 20,
                     ),
@@ -116,3 +115,4 @@ class HomePort extends StatelessWidget {
     );
   }
 }
+

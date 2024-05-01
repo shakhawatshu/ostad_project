@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:device_preview/device_preview.dart';
-import 'home_land.dart';
-import 'home_port.dart';
+import 'package:ostad_project/home_land.dart';
+import 'package:ostad_project/home_port.dart';
 
 void main() {
   runApp(
     DevicePreview(
-      enabled: true,
+      enabled: false,
       builder: (context) => const MyApp(), // Wrap your app
     ),
   );
