@@ -103,10 +103,7 @@ class HomePort extends StatelessWidget {
                   padding: const EdgeInsets.fromLTRB(15, 0, 0, 10),
                   child: Text(
                     _photo[index].text,
-                    style:  const TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                    ),
+                    style:  textStyle.style,
                   ),
                 ),
               ),
