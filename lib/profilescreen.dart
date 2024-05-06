@@ -18,8 +18,8 @@ class ProfileScreen extends StatelessWidget {
         child: Column(
           children: [
             Text(userName),
-            ElevatedButton(onPressed: (){}, child: const Text('Home')),
-            ElevatedButton(onPressed: (){}, child: const Text('Settings')),
+            ElevatedButton(onPressed: (){}, child: const Text(' Home ')),
+            ElevatedButton(onPressed: (){}, child: const Text(' Settings ')),
           ],
         ),
       ),

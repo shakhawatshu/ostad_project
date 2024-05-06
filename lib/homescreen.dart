@@ -19,10 +19,10 @@ class HomeScreen extends StatelessWidget {
           children: [
             ElevatedButton(onPressed: (){
               Navigator.pushNamed(context, ProfileScreen.routeName,arguments: 'Shuvo');
-            }, child: const Text('Profile')),
+            }, child: const Text(' Profile ')),
             ElevatedButton(onPressed: (){
               Navigator.pushNamed(context, SettingsScreen.routeName);
-            }, child: const Text('Settings')),
+            }, child: const Text(' Settings ')),
           ],
         ),
       ),

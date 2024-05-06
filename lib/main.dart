@@ -25,6 +25,7 @@ class _MyAppState extends State<MyApp> {
 
   MaterialPageRoute? _generateroute(RouteSettings settings){
     Widget? widget;
+    //widget define here
     switch(settings.name){
       case HomeScreen.routeName:
         widget = const HomeScreen();
@@ -38,7 +39,7 @@ class _MyAppState extends State<MyApp> {
       case SettingsScreen.routeName:
         widget= const SettingsScreen();
     }
-
+    // widget route build here
     if(widget != null){
       return MaterialPageRoute(builder: (context)=> widget!);
     }else{

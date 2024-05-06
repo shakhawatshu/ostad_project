@@ -15,8 +15,8 @@ class SettingsScreen extends StatelessWidget {
       body: Center(
         child: Column(
           children: [
-            ElevatedButton(onPressed: (){}, child: const Text('Profile')),
-            ElevatedButton(onPressed: (){}, child: const Text('Settings')),
+            ElevatedButton(onPressed: (){}, child: const Text(' Profile ')),
+            ElevatedButton(onPressed: (){}, child: const Text(' Settings ')),
           ],
         ),
       ),
