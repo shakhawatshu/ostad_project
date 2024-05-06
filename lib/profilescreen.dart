@@ -1,31 +1,25 @@
 import 'package:flutter/material.dart';
 
-
 class ProfileScreen extends StatelessWidget {
-  static const String routeName ='/profile';
-   const ProfileScreen({super.key, required this.profileDetails,});
+  static const routeName = '/profile';
+  const ProfileScreen({super.key, required this.userName});
 
-   final Map<String, String> profileDetails;
+  final String userName;
 
-   @override
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Profile'),
+        title: const Text('Profile', style: TextStyle(fontWeight: FontWeight.bold),),
+        centerTitle: true,
         backgroundColor: Colors.green,
       ),
-
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Text(profileDetails.values.first.toString()),
-            Text(profileDetails.values.last.toString()),
-            ElevatedButton(onPressed: (){
-            }, child: const Text('Home')),
-            ElevatedButton(onPressed: (){
-              Navigator.pop(context);
-            }, child: const Text('Settings')),
+            Text(userName),
+            ElevatedButton(onPressed: (){}, child: const Text('Home')),
+            ElevatedButton(onPressed: (){}, child: const Text('Settings')),
           ],
         ),
       ),

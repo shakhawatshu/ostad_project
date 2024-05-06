@@ -18,30 +18,34 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: '/',
-      onGenerateRoute: _generateRoute );
-        }
+      initialRoute: HomeScreen.routeName,
+      onGenerateRoute: _generateroute,
+    );
+  }
 
-        MaterialPageRoute? _generateRoute (RouteSettings settings){
-          Widget? widget;
-          if(settings.name == ProfileScreen.routeName){
-            Map<String, String> profileDetails= settings.arguments as Map<String, String>;
-            widget = ProfileScreen(profileDetails: profileDetails);
-          }else if(settings.name == SettingsScreen.routeName){
-            widget = const SettingsScreen();
-          }else if(settings.name == HomeScreen.routeName){
-            widget = const HomeScreen();
-          }
-          if(widget !=  null){
-            return MaterialPageRoute(builder: (context) => widget!);
-          }else{
-            return null;
-          }
-        }
+  MaterialPageRoute? _generateroute(RouteSettings settings){
+    Widget? widget;
+    switch(settings.name){
+      case HomeScreen.routeName:
+        widget = const HomeScreen();
+        break;
+
+      case ProfileScreen.routeName:
+        String username = settings.arguments as String;
+        widget = ProfileScreen(userName:username);
+        break;
+
+      case SettingsScreen.routeName:
+        widget= const SettingsScreen();
+    }
+
+    if(widget != null){
+      return MaterialPageRoute(builder: (context)=> widget!);
+    }else{
+      return null;
+    }
+
+  }
+
+
 }
-
-
-
-
-
-
