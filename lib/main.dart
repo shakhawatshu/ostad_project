@@ -1,46 +1,47 @@
 import 'package:flutter/material.dart';
-import 'package:device_preview/device_preview.dart';
-import 'package:ostad_project/home_land.dart';
-import 'package:ostad_project/home_port.dart';
+import 'package:ostad_project/homescreen.dart';
+import 'package:ostad_project/profilescreen.dart';
+import 'package:ostad_project/settingsscreen.dart';
 
-void main() {
-  runApp(
-    DevicePreview(
-      enabled: true,
-      builder: (context) => const MyApp(), // Wrap your app
-    ),
-  );
+void main(){
+  runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      locale: DevicePreview.locale(context),
-      builder: DevicePreview.appBuilder,
-      debugShowCheckedModeBanner: false,
-      home: const Home(),
-    );
-  }
+  State<MyApp> createState() => _MyAppState();
 }
 
-class Home extends StatelessWidget {
-  const Home({super.key});
-
+class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: OrientationBuilder(
-        builder: (context, orientation) {
-          if (orientation == Orientation.landscape) {
-            return HomeLand();
-          } else {
-            return HomePort();
+    return MaterialApp(
+      initialRoute: '/',
+      onGenerateRoute: _generateRoute );
+        }
+
+        MaterialPageRoute? _generateRoute (RouteSettings settings){
+          Widget? widget;
+          if(settings.name == ProfileScreen.routeName){
+            Map<String, String> profileDetails= settings.arguments as Map<String, String>;
+            widget = ProfileScreen(profileDetails: profileDetails);
+          }else if(settings.name == SettingsScreen.routeName){
+            widget = const SettingsScreen();
+          }else if(settings.name == HomeScreen.routeName){
+            widget = const HomeScreen();
           }
-        },
-      ),
-    );
-  }
+          if(widget !=  null){
+            return MaterialPageRoute(builder: (context) => widget!);
+          }else{
+            return null;
+          }
+        }
 }
+
+
+
+
+
+
