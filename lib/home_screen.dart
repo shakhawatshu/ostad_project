@@ -70,7 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   leading: CircleAvatar(
                     child: Text('${index+1}'),
                   ),
-                  trailing: Text(waterConsumeList[index].glassCount.toString()),
+                  trailing: Text(waterConsumeList[index].glassCount.toString(),style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),),
                 );
               },),
             )
