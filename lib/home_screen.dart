@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ostad_project/Water_consume_class.dart';
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -100,10 +101,3 @@ class _HomeScreenState extends State<HomeScreen> {
 
 }
 
-class WaterConsume{
-
-  final DateTime time;
-  final int glassCount;
-
-  WaterConsume({required this.time, required this.glassCount});
-}
