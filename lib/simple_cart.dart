@@ -13,10 +13,11 @@ class _CartState extends State<Cart> {
   int Count = 1;
   final List product = [
     ProductTable(
-        Name: 'PullOver',
+        Name: 'Pullover',
         Photo:
             'https://s3-alpha-sig.figma.com/img/6e2a/6075/d2aebb9b52db31deea621f309362bab4?Expires=1716163200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=g56LRANcTKnqj2EF8wBDcJWCNQnmv4kXtTH-tjg7diUp7dJTP~rJsLHycZuHJhGkFX7JwZPyA8l8ff8Ql5ankjgGuwiQ1VeZdOt8GDX3c~iLF1P1a6Odvv3ikCbCwLZf9S6D-XK~JSDX844TgxsM0p9W4j~RCE1LyjzruBAiv2mYs7UmPQOlPdZrHA-RfdHgQ3OJPxvicUhM2HXVRSvQ2lRCuJsEeiBPHCgYA9N9YKwSWFCqITWQozlm~VxF2H~yrwr-rZZeK3GLkh4n65WbSXQkJve-mcSnhztkM92kpyC9UOQikzi5evTUwaMPjzEdXz~u-kWawlEo~Bgx2KJ6Og__',
         Price: 51),
+
   ];
 
   @override
@@ -45,9 +46,11 @@ class _CartState extends State<Cart> {
               height: 24,
             ),
             Expanded(
-              child: ListView(
-                children: [
-                  Container(
+              child: ListView.builder(
+                padding: EdgeInsets.only(top: 20),
+                itemCount: product.length,
+                itemBuilder: (context, index){
+                  return Container(
                     height: 114,
                     width: 360,
                     decoration: BoxDecoration(
@@ -129,33 +132,53 @@ class _CartState extends State<Cart> {
                                         builder: (context) {
                                           return Expanded(
                                               child: AlertDialog(
-                                            title: Center(
-                                              child: Text(
-                                                'Congratulations!',
-                                                style: TextStyle(
-                                                  fontSize: 20,
-                                                  fontWeight: FontWeight.bold,
+                                                title: const Center(
+                                                  child: Text(
+                                                    'Congratulations!',
+                                                    style: TextStyle(
+                                                      fontSize: 20,
+                                                      fontWeight: FontWeight.bold,
+                                                    ),
+                                                  ),
                                                 ),
-                                              ),
-                                            ),
-                                            backgroundColor: Colors.white,
-                                                content: SizedBox(
+                                                backgroundColor: Colors.white,
+                                                content: const SizedBox(
                                                     height: 90,
                                                     width: double.infinity,
                                                     child: Column(
-                                                      mainAxisAlignment: MainAxisAlignment.center,
-                                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                                      mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                      crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
                                                       children: [
-                                                        Text('You have added',style: TextStyle(fontSize: 20),),
-                                                        Text('5',style: TextStyle(fontSize: 20),),
-                                                        Text('T-shirt on your bag!',style: TextStyle(fontSize: 20),),
-
+                                                        Text(
+                                                          'You have added',
+                                                          style: TextStyle(
+                                                              fontSize: 20),
+                                                        ),
+                                                        Text(
+                                                          '5',
+                                                          style: TextStyle(
+                                                              fontSize: 20),
+                                                        ),
+                                                        Text(
+                                                          'Pullover on your bag!',
+                                                          style: TextStyle(
+                                                              fontSize: 20),
+                                                        ),
                                                       ],
                                                     )),
                                                 actions: [
-                                                  Center(child: ElevatedButton(onPressed: (){Navigator.of(context).pop();}, child: Text('Okay'),style: ElevatedButton.styleFrom(
-                                                    fixedSize: Size(249, 50),
-                                                  ),)),
+                                                  Center(
+                                                      child: ElevatedButton(
+                                                        onPressed: () {
+                                                          Navigator.of(context).pop();
+                                                        },
+                                                        style: ElevatedButton.styleFrom(
+                                                          fixedSize: const Size(249, 50),
+                                                        ),
+                                                        child: const Text('Okay'),
+                                                      )),
                                                 ],
                                               ));
                                         },
@@ -167,7 +190,7 @@ class _CartState extends State<Cart> {
                                       }
                                     });
                                   },
-                                  icon:  Icon(Icons.add),
+                                  icon: const Icon(Icons.add),
                                   style: buttonStyle.iconButton,
                                 ),
                               ],
@@ -183,16 +206,19 @@ class _CartState extends State<Cart> {
                             IconButton(
                                 onPressed: () {},
                                 icon: const Icon(Icons.more_vert)),
-                            Text('${product[0].Price.toString()}\$',
-                              style: TextStyle(
+                            Text(
+                              '${product[0].Price.toString()}\$',
+                              style: const TextStyle(
                                   fontSize: 20, fontWeight: FontWeight.bold),
                             ),
                           ],
                         ),
                       ],
                     ),
-                  ),
-                ],
+
+                  );
+                }
+
               ),
             ),
             Row(
@@ -215,9 +241,8 @@ class _CartState extends State<Cart> {
             Center(
                 child: ElevatedButton(
               onPressed: () {},
+              style: ElevatedButton.styleFrom(fixedSize: const Size(350, 55)),
               child: const Text('Check Out'),
-              style: ElevatedButton.styleFrom(
-                  fixedSize: const Size(350, 55)),
             ))
           ],
         ),
@@ -226,7 +251,7 @@ class _CartState extends State<Cart> {
   }
 
   _totalAmountCount() {
-    var TotalAmount = product[0].Price * Count;
+    int TotalAmount = product[0].Price * Count;
     return TotalAmount;
   }
 
