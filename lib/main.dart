@@ -1,25 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:ostad_project/home_screen.dart';
+import 'package:ostad_project/button_Style.dart';
+import 'package:ostad_project/simple_cart.dart';
 
 void main(){
-  runApp(const waterTrackerApp());
+  runApp(MyApp());
 }
 
-class waterTrackerApp extends StatelessWidget {
-  const waterTrackerApp({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        appBarTheme: const AppBarTheme(
-          centerTitle: true,
-          backgroundColor: Colors.amberAccent,
-          foregroundColor: Colors.white,
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: buttonStyle.elevatedButton,
         ),
+        appBarTheme: AppBarTheme(
+          backgroundColor: Colors.white,
+          centerTitle: true,
+          toolbarHeight: 90,
+        )
       ),
-      home: const HomeScreen(),
+      home: Cart(),
     );
   }
 }
