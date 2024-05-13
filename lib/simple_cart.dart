@@ -146,7 +146,7 @@ class _CartState extends State<Cart> {
                                               ),
                                             ),
                                             backgroundColor: Colors.white,
-                                            content: const SizedBox(
+                                            content:  SizedBox(
                                                 height: 90,
                                                 width: double.infinity,
                                                 child: Column(
@@ -155,19 +155,19 @@ class _CartState extends State<Cart> {
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.center,
                                                   children: [
-                                                    Text(
+                                                    const Text(
                                                       'You have added',
                                                       style: TextStyle(
                                                           fontSize: 20),
                                                     ),
-                                                    Text(
+                                                    const Text(
                                                       '5',
                                                       style: TextStyle(
                                                           fontSize: 20),
                                                     ),
                                                     Text(
-                                                      'Pullover on your bag!',
-                                                      style: TextStyle(
+                                                      '${product[0].Name} on your bag!',
+                                                      style: const TextStyle(
                                                           fontSize: 20),
                                                     ),
                                                   ],
@@ -182,7 +182,7 @@ class _CartState extends State<Cart> {
                                                   fixedSize:
                                                       const Size(249, 50),
                                                 ),
-                                                child: const Text('Okay'),
+                                                child: const Text('Okay',),
                                               )),
                                             ],
                                           ));
@@ -294,7 +294,7 @@ class _CartState extends State<Cart> {
                                         builder: (context) {
                                           return Expanded(
                                               child: AlertDialog(
-                                            title: const Center(
+                                            title:   const Center(
                                               child: Text(
                                                 'Congratulations!',
                                                 style: TextStyle(
@@ -304,7 +304,7 @@ class _CartState extends State<Cart> {
                                               ),
                                             ),
                                             backgroundColor: Colors.white,
-                                            content: const SizedBox(
+                                            content:  SizedBox(
                                                 height: 90,
                                                 width: double.infinity,
                                                 child: Column(
@@ -313,19 +313,19 @@ class _CartState extends State<Cart> {
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.center,
                                                   children: [
-                                                    Text(
+                                                    const Text(
                                                       'You have added',
                                                       style: TextStyle(
                                                           fontSize: 20),
                                                     ),
-                                                    Text(
+                                                    const Text(
                                                       '5',
                                                       style: TextStyle(
                                                           fontSize: 20),
                                                     ),
                                                     Text(
-                                                      'T-Shirt on your bag!',
-                                                      style: TextStyle(
+                                                      '${product[1].Name} on your bag!',
+                                                      style: const TextStyle(
                                                           fontSize: 20),
                                                     ),
                                                   ],
@@ -458,7 +458,7 @@ class _CartState extends State<Cart> {
                                               ),
                                             ),
                                             backgroundColor: Colors.white,
-                                            content: const SizedBox(
+                                            content:  SizedBox(
                                                 height: 90,
                                                 width: double.infinity,
                                                 child: Column(
@@ -467,19 +467,19 @@ class _CartState extends State<Cart> {
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.center,
                                                   children: [
-                                                    Text(
+                                                    const Text(
                                                       'You have added',
                                                       style: TextStyle(
                                                           fontSize: 20),
                                                     ),
-                                                    Text(
+                                                    const Text(
                                                       '5',
                                                       style: TextStyle(
                                                           fontSize: 20),
                                                     ),
                                                     Text(
-                                                      'Sprotswear on your bag!',
-                                                      style: TextStyle(
+                                                      '${product[2].Name} on your bag!',
+                                                      style: const TextStyle(
                                                           fontSize: 20),
                                                     ),
                                                   ],
