@@ -6,7 +6,7 @@ import 'package:device_preview/device_preview.dart';
 void main(){
   runApp(DevicePreview(
     enabled: true,
-    builder: (context) => MyApp(), // Wrap your app
+    builder: (context) => const MyApp(), // Wrap your app
   ),);
 }
 
@@ -23,13 +23,13 @@ class MyApp extends StatelessWidget {
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: buttonStyle.elevatedButton,
         ),
-        appBarTheme: AppBarTheme(
+        appBarTheme: const AppBarTheme(
           backgroundColor: Colors.white,
           centerTitle: true,
           toolbarHeight: 90,
         )
       ),
-      home: Cart(),
+      home: const Cart(),
     );
   }
 }

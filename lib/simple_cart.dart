@@ -538,7 +538,8 @@ class _CartState extends State<Cart> {
               children: [
                 const Text(
                   'Total Amount:',
-                  style: TextStyle(fontSize: 18),),
+                  style: TextStyle(fontSize: 18),
+                ),
                 Text(
                   '${_totalAmountCount().toString()}\$',
                   style: const TextStyle(
@@ -549,7 +550,14 @@ class _CartState extends State<Cart> {
             const SizedBox(height: 12),
             Center(
                 child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    content: Center(
+                        child: Text(
+                  'Thank you for your order!',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ))));
+              },
               style: ElevatedButton.styleFrom(fixedSize: const Size(350, 55)),
               child: const Text('Check Out'),
             ))
@@ -558,6 +566,7 @@ class _CartState extends State<Cart> {
       ),
     );
   }
+
   _totalAmountCount() {
     int ProductOneAmountTotal = product[0].Price * productIdOneCount;
     int ProductTwoAmountTotal = product[1].Price * productIdTwoCount;
