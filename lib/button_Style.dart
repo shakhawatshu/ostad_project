@@ -10,8 +10,9 @@ class buttonStyle{
   static ButtonStyle iconButton = IconButton.styleFrom(
       elevation: 70,
       foregroundColor: Colors.black,
-      backgroundColor: Colors.grey,
-      shadowColor: Colors.black12
+      backgroundColor: Colors.white,
+      shadowColor: Colors.grey,
+      highlightColor: Colors.white,
   );
 
 
