@@ -100,7 +100,7 @@ class _CartState extends State<Cart> {
                               ],
                             ),
                             const SizedBox(
-                              height: 12,
+                              height: 8,
                             ),
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -219,7 +219,7 @@ class _CartState extends State<Cart> {
                     ),
                   ),
                   const SizedBox(
-                    height: 12,
+                    height: 20,
                   ),
                   Container(
                     height: 104,
@@ -258,7 +258,7 @@ class _CartState extends State<Cart> {
                               ],
                             ),
                             const SizedBox(
-                              height: 12,
+                              height: 8,
                             ),
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -377,7 +377,7 @@ class _CartState extends State<Cart> {
                     ),
                   ),
                   const SizedBox(
-                    height: 12,
+                    height: 20,
                   ),
                   Container(
                     height: 104,
@@ -416,7 +416,7 @@ class _CartState extends State<Cart> {
                               ],
                             ),
                             const SizedBox(
-                              height: 12,
+                              height: 8,
                             ),
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
