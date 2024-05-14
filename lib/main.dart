@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:ostad_project/button_Style.dart';
-import 'package:ostad_project/simple_cart.dart';
+import 'package:ostad_project/product_List_Screen.dart';
 
 void main(){
-  runApp(const MyApp(),);
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -11,19 +10,33 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
+    return  MaterialApp(
+      theme:ThemeData(
         elevatedButtonTheme: ElevatedButtonThemeData(
-          style: buttonStyle.elevatedButton,
+          style: ElevatedButton.styleFrom(
+            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+            fixedSize: const Size.fromWidth(double.maxFinite),
+            elevation: 5,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12),),
+            foregroundColor: Colors.black,
+
+          ),
+        ),
+        inputDecorationTheme: InputDecorationTheme(
+          border:OutlineInputBorder(borderRadius: BorderRadius.circular(12),borderSide: const BorderSide(color: Colors.grey)),
+          enabledBorder:OutlineInputBorder(borderRadius: BorderRadius.circular(12),borderSide: const BorderSide(color: Colors.black)),
+          focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(12),borderSide: const BorderSide(color: Colors.black)),
+          errorBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(12),borderSide: const BorderSide(color: Colors.red)),
         ),
         appBarTheme: const AppBarTheme(
-          backgroundColor: Colors.white,
           centerTitle: true,
-          toolbarHeight: 90,
         )
       ),
-      home: const Cart(),
+      debugShowCheckedModeBanner: false,
+      home:  const productListScreen(
+      ),
     );
   }
 }
+
+
