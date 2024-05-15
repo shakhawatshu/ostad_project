@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class AddProductScreen extends StatefulWidget {
   const AddProductScreen({super.key});
+  static const String routeName= '/addproductscreen';
 
   @override
   State<AddProductScreen> createState() => _AddProductScreenState();

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 
 class UpdateProductScreen extends StatefulWidget {
-  const UpdateProductScreen({super.key});
+  const UpdateProductScreen({super.key,  required this.humanName});
+  static const String routeName= '/updateproductscreen';
 
+  final List<String> humanName;
   @override
-  State<UpdateProductScreen> createState() => _UpdateProductScreenState();
+  State<UpdateProductScreen> createState() => _UpdateProductScreenState(humanName:humanName);
 }
 
 final TextEditingController _nameTEController = TextEditingController();
@@ -15,6 +17,9 @@ final TextEditingController _photoTEController = TextEditingController();
 final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
 class _UpdateProductScreenState extends State<UpdateProductScreen> {
+  final List<String> humanName;
+_UpdateProductScreenState({required this.humanName});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -105,6 +110,7 @@ class _UpdateProductScreenState extends State<UpdateProductScreen> {
                     style: TextStyle(fontSize: 22),
                   ),
                 ),
+              Text(humanName.toString()),
               ],
             ),
           ),

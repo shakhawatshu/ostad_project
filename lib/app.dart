@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:ostad_project/add_Product_Screen.dart';
 import 'package:ostad_project/product_List_Screen.dart';
+import 'package:ostad_project/update_Product_Screen.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -7,13 +9,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  MaterialApp(
-
+      initialRoute: '/',
+      onGenerateRoute: _routeGenerate,
       themeMode: ThemeMode.system,
       theme:_buildThemeData(),
       darkTheme:_buildDarkThemeData(),
       debugShowCheckedModeBanner: false,
-      home:  const productListScreen(
-      ),
     );
   }
 
@@ -41,6 +42,8 @@ class MyApp extends StatelessWidget {
           centerTitle: true,
         )
     );
+
+
   }
 
   ThemeData _buildThemeData() {
@@ -66,5 +69,27 @@ class MyApp extends StatelessWidget {
           centerTitle: true,
         )
     );
+  }
+
+  //make materialpageroute nullble
+  MaterialPageRoute? _routeGenerate(RouteSettings settings){
+    Widget? widget;
+    switch (settings.name){
+      case productListScreen.routeName:
+        widget = const productListScreen();
+        break;
+      case AddProductScreen.routeName:
+        widget = const AddProductScreen();
+        break;
+      case UpdateProductScreen.routeName:
+        List<String> humanName = settings.arguments as List<String>;
+        widget =UpdateProductScreen(humanName: humanName ,);
+        break;
+    }
+    if(widget != null){
+      return MaterialPageRoute(builder: (context) =>  widget!,);
+    }
+    return null;
+
   }
 }

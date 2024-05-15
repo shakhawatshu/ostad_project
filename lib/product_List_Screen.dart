@@ -5,9 +5,15 @@ import 'package:ostad_project/update_Product_Screen.dart';
 class productListScreen extends StatefulWidget {
   const productListScreen({super.key});
 
+  static const String routeName= '/';
   @override
   State<productListScreen> createState() => _productListScreenState();
 }
+List<String> humanName=[
+  'shuvo',
+  'sazin',
+  'jojo'
+];
 
 class _productListScreenState extends State<productListScreen> {
   @override
@@ -15,11 +21,7 @@ class _productListScreenState extends State<productListScreen> {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const AddProductScreen(),
-              ));
+          Navigator.pushNamed(context, AddProductScreen.routeName);
         },
         child: const Icon(Icons.add),
       ),
@@ -49,11 +51,7 @@ class _productListScreenState extends State<productListScreen> {
                   children: [
                     IconButton(
                         onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const UpdateProductScreen(),
-                              ));
+                          Navigator.pushNamed(context, UpdateProductScreen.routeName,arguments:humanName );
                         },
                         icon: const Icon(Icons.edit)),
                     IconButton(
