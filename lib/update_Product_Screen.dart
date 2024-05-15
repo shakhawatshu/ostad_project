@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class AddProductScreen extends StatefulWidget {
-  const AddProductScreen({super.key});
+class UpdateProductScreen extends StatefulWidget {
+  const UpdateProductScreen({super.key});
 
   @override
-  State<AddProductScreen> createState() => _AddProductScreenState();
+  State<UpdateProductScreen> createState() => _UpdateProductScreenState();
 }
 
 final TextEditingController _nameTEController = TextEditingController();
@@ -14,12 +14,12 @@ final TextEditingController _totalPriceTEController = TextEditingController();
 final TextEditingController _photoTEController = TextEditingController();
 final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-class _AddProductScreenState extends State<AddProductScreen> {
+class _UpdateProductScreenState extends State<UpdateProductScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Add Product'),
+        title: const Text('Update Product'),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -101,7 +101,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                     if (_formKey.currentState!.validate()) {}
                   },
                   child: const Text(
-                    'Add',
+                    'Update',
                     style: TextStyle(fontSize: 22),
                   ),
                 ),
