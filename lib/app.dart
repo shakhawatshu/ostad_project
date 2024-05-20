@@ -3,14 +3,16 @@ import 'package:ostad_project/add_Product_Screen.dart';
 import 'package:ostad_project/product_List_Screen.dart';
 import 'package:ostad_project/update_Product_Screen.dart';
 
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return  MaterialApp(
-      initialRoute: '/',
-      onGenerateRoute: _routeGenerate,
+      home: productListScreen(),
+      // initialRoute: '/',
+      // onGenerateRoute: _routeGenerate,
       themeMode: ThemeMode.system,
       theme:_buildThemeData(),
       darkTheme:_buildDarkThemeData(),
@@ -72,6 +74,7 @@ class MyApp extends StatelessWidget {
   }
 
   //make materialpageroute nullble
+/*
   MaterialPageRoute? _routeGenerate(RouteSettings settings){
     Widget? widget;
     switch (settings.name){
@@ -82,8 +85,8 @@ class MyApp extends StatelessWidget {
         widget = const AddProductScreen();
         break;
       case UpdateProductScreen.routeName:
-        List<String> humanName = settings.arguments as List<String>;
-        widget =UpdateProductScreen(humanName: humanName ,);
+        List<Product> args = settings.arguments as List<Product>;
+        widget = UpdateProductScreen(product: args,);
         break;
     }
     if(widget != null){
@@ -92,4 +95,5 @@ class MyApp extends StatelessWidget {
     return null;
 
   }
+*/
 }

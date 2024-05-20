@@ -1,4 +1,7 @@
+import 'dart:convert';
+import 'dart:ffi';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 
 class AddProductScreen extends StatefulWidget {
   const AddProductScreen({super.key});
@@ -9,11 +12,13 @@ class AddProductScreen extends StatefulWidget {
 }
 
 final TextEditingController _nameTEController = TextEditingController();
+final TextEditingController _productCodeTEController = TextEditingController();
 final TextEditingController _quantityTEController = TextEditingController();
 final TextEditingController _unitPriceTEController = TextEditingController();
 final TextEditingController _totalPriceTEController = TextEditingController();
 final TextEditingController _photoTEController = TextEditingController();
 final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+bool _addNewProductInProgress= false;
 
 class _AddProductScreenState extends State<AddProductScreen> {
   @override
@@ -37,6 +42,18 @@ class _AddProductScreenState extends State<AddProductScreen> {
                   validator: (String? Value) {
                     if (Value == null || Value.trim().isEmpty) {
                       return 'Product Name';
+                    }
+                    return null;
+                  },
+                ),
+                TextFormField(
+                  controller: _productCodeTEController,
+                  decoration: const InputDecoration(
+                    label: Text('Product Code'),
+                  ),
+                  validator: (String? Value) {
+                    if (Value == null || Value.trim().isEmpty) {
+                      return 'Product Code';
                     }
                     return null;
                   },
@@ -97,21 +114,64 @@ class _AddProductScreenState extends State<AddProductScreen> {
                   },
                 ),
                 const SizedBox(height: 40),
-                ElevatedButton(
+                Visibility(
+                  visible: _addNewProductInProgress == false,
+                  replacement: CircularProgressIndicator(),
+                  child:ElevatedButton(
                   onPressed: () {
-                    if (_formKey.currentState!.validate()) {}
+                    if (_formKey.currentState!.validate()) {
+                      _addNewProduct();
+                    }
                   },
                   child: const Text(
                     'Add',
                     style: TextStyle(fontSize: 22),
                   ),
-                ),
+                ), )
               ],
             ),
           ),
         ),
       ),
     );
+
+  }
+
+  Future<void> _addNewProduct()async{
+    _addNewProductInProgress =true;
+    setState(() {
+
+    });
+
+    Map<String, dynamic> inputData={
+      "Img":_photoTEController.text.trim(),
+      "ProductCode":_productCodeTEController.text.trim(),
+      "ProductName":_nameTEController.text.trim(),
+      "Qty":_quantityTEController.text.trim(),
+      "TotalPrice":_totalPriceTEController.text.trim(),
+      "UnitPrice":_unitPriceTEController.text.trim()
+    };
+    const String addNewProductUrl='https://crud.teamrabbil.com/api/v1/CreateProduct';
+    Uri baseuri= Uri.parse(addNewProductUrl);
+    Response response = await post(baseuri, body:jsonEncode(inputData),headers:{
+      'content-type':'application/json'
+    } );
+    print(response.statusCode);
+    _addNewProductInProgress=false;
+    setState(() {
+
+    });
+
+    if(response.statusCode == 200){
+      _nameTEController.clear();
+      _productCodeTEController.clear();
+      _quantityTEController.clear();
+      _unitPriceTEController.clear();
+      _totalPriceTEController.clear();
+      _photoTEController.clear();
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('New Product Added')));
+    }
+
   }
 
   @override
@@ -121,6 +181,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
     _unitPriceTEController.dispose();
     _totalPriceTEController.dispose();
     _photoTEController.dispose();
+    _productCodeTEController.dispose();
     super.dispose();
   }
 }
