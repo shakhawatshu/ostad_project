@@ -171,7 +171,7 @@ class _UpdateProductScreenState extends State<UpdateProductScreen> {
      print(response.body);
      if(response.statusCode==200){
        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Product Updated')));
-       Navigator.pop(context);
+       Navigator.pop(context, true);
      }
 
      else{

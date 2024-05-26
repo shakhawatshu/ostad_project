@@ -30,11 +30,18 @@ class _productListScreenState extends State<productListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) {
+        onPressed: () async{
+          final popResult=await Navigator.push(context, MaterialPageRoute(builder: (context) {
             return const AddProductScreen();
           },));
-        },
+        if(popResult == true){
+          _getProductList();
+          _productListInProgress=true;
+          setState(() {
+
+          });
+        }
+          },
         child: const Icon(Icons.add),
       ),
       appBar: AppBar(
@@ -122,11 +129,14 @@ class _productListScreenState extends State<productListScreen> {
       trailing: Wrap(
         children: [
           IconButton(
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
+              onPressed: () async{
+               final popResult= await Navigator.push(context, MaterialPageRoute(builder: (context) {
                   return UpdateProductScreen(product: product);
                 },));
-              },
+              if(popResult==true){
+                _getProductList();
+              }
+               },
               icon: const Icon(Icons.edit)),
           IconButton(
               onPressed: () {

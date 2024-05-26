@@ -170,6 +170,8 @@ class _AddProductScreenState extends State<AddProductScreen> {
       _totalPriceTEController.clear();
       _photoTEController.clear();
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('New Product Added')));
+
+      Navigator.pop(context, true);
     }
 
   }
