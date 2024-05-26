@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 
@@ -46,6 +45,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                     return null;
                   },
                 ),
+                const SizedBox(height: 12),
                 TextFormField(
                   controller: _productCodeTEController,
                   decoration: const InputDecoration(
@@ -116,7 +116,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                 const SizedBox(height: 40),
                 Visibility(
                   visible: _addNewProductInProgress == false,
-                  replacement: CircularProgressIndicator(),
+                  replacement: const CircularProgressIndicator(),
                   child:ElevatedButton(
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
@@ -169,7 +169,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
       _unitPriceTEController.clear();
       _totalPriceTEController.clear();
       _photoTEController.clear();
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('New Product Added')));
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('New Product Added')));
     }
 
   }

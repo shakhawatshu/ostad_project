@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:ostad_project/add_Product_Screen.dart';
 import 'package:ostad_project/product.dart';
@@ -33,7 +32,7 @@ class _productListScreenState extends State<productListScreen> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(context, MaterialPageRoute(builder: (context) {
-            return AddProductScreen();
+            return const AddProductScreen();
           },));
         },
         child: const Icon(Icons.add),
@@ -41,14 +40,14 @@ class _productListScreenState extends State<productListScreen> {
       appBar: AppBar(
         title: const Text('Product List'),
         actions: [
-          IconButton(onPressed: () {}, icon: Icon(Icons.add))
+          IconButton(onPressed: () {}, icon: const Icon(Icons.add))
         ],
       ),
       body: Visibility(
         visible: _productListInProgress == false,
-        replacement: Center(child: CircularProgressIndicator()),
+        replacement: const Center(child: CircularProgressIndicator()),
         child: Padding(
-          padding: EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(16.0),
           child: ListView.separated(
             itemCount: productList.length,
             itemBuilder: (context, index) {
@@ -86,7 +85,7 @@ class _productListScreenState extends State<productListScreen> {
       for (Map<String, dynamic> p in jsonDecodeData) {
         Product product = Product(
             productId: p['_id'] ?? '',
-            productName: p['ProductName'] ?? '',
+            productName: p['ProductName'] ?? 'Unknown',
             productCode: p['ProductCode'] ?? '',
             image: p['Img'] ?? '',
             unitPrice: p['UnitPrice'] ?? '',
@@ -97,7 +96,7 @@ class _productListScreenState extends State<productListScreen> {
       }
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Product List Failed, Try Again!')));
+          const SnackBar(content: Text('Product List Failed, Try Again!')));
     }
 
     _productListInProgress= false;
@@ -131,7 +130,7 @@ class _productListScreenState extends State<productListScreen> {
               icon: const Icon(Icons.edit)),
           IconButton(
               onPressed: () {
-                _showDeleteAlertDialog();
+                _showDeleteAlertDialog(product.productId);
               },
               icon: const Icon(Icons.delete_forever_outlined)),
         ],
@@ -139,7 +138,7 @@ class _productListScreenState extends State<productListScreen> {
     );
   }
 
-  void _showDeleteAlertDialog() {
+  void _showDeleteAlertDialog(String productId) {
     showDialog(
       context: context,
       builder: (context) {
@@ -154,6 +153,7 @@ class _productListScreenState extends State<productListScreen> {
                 child: const Text('No')),
             TextButton(
                 onPressed: () {
+                  _deleteProduct(productId);
                   Navigator.pop(context);
                 },
                 child: const Text('Delete')),
@@ -161,6 +161,30 @@ class _productListScreenState extends State<productListScreen> {
         );
       },
     );
+  }
+
+  Future<void> _deleteProduct(String productId) async {
+    _productListInProgress=false;
+    setState(() {
+    });
+    String deleteProductUrl = 'https://crud.teamrabbil.com/api/v1/DeleteProduct/$productId';
+    Uri uri = Uri.parse(deleteProductUrl);
+    Response response = await get(uri);
+    print(response.statusCode);
+    print(response.body);
+    if (response.statusCode == 200) {
+      _getProductList();
+
+      _productListInProgress=true;
+      setState(() {
+
+      });
+
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Delete Product Failed, Try Again!')));
+    }
+
   }
 }
 

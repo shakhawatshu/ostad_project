@@ -1,6 +1,4 @@
 import 'dart:convert';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:ostad_project/product.dart';
@@ -134,7 +132,7 @@ class _UpdateProductScreenState extends State<UpdateProductScreen> {
                 const SizedBox(height: 40),
                 Visibility(
                   visible: _updateProductInProgress==false,
-                  replacement: CircularProgressIndicator(),
+                  replacement: const CircularProgressIndicator(),
                   child: ElevatedButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
@@ -172,12 +170,12 @@ class _UpdateProductScreenState extends State<UpdateProductScreen> {
      print(response.statusCode);
      print(response.body);
      if(response.statusCode==200){
-       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Product Updated')));
+       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Product Updated')));
        Navigator.pop(context);
      }
 
      else{
-       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Failed')));
+       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Failed')));
      }
 
      _updateProductInProgress= false;
