@@ -50,21 +50,24 @@ class _productListScreenState extends State<productListScreen> {
           IconButton(onPressed: () {}, icon: const Icon(Icons.add))
         ],
       ),
-      body: Visibility(
-        visible: _productListInProgress == false,
-        replacement: const Center(child: CircularProgressIndicator()),
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: ListView.separated(
-            itemCount: productList.length,
-            itemBuilder: (context, index) {
-              return SingleChildScrollView(
-                child: _buildProductList(productList[index]),
-              );
-            },
-            separatorBuilder: (context, index) =>
-            const Divider(
-              height: 16,
+      body: RefreshIndicator(
+        onRefresh: _getProductList,
+        child: Visibility(
+          visible: _productListInProgress == false,
+          replacement: const Center(child: CircularProgressIndicator()),
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: ListView.separated(
+              itemCount: productList.length,
+              itemBuilder: (context, index) {
+                return SingleChildScrollView(
+                  child: _buildProductList(productList[index]),
+                );
+              },
+              separatorBuilder: (context, index) =>
+              const Divider(
+                height: 16,
+              ),
             ),
           ),
         ),
