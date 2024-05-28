@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ostad_project/add_Product_Screen.dart';
 import 'package:ostad_project/product_List_Screen.dart';
-import 'package:ostad_project/update_Product_Screen.dart';
-
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -10,7 +7,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  MaterialApp(
-      home: productListScreen(),
+      home: const productListScreen(),
       // initialRoute: '/',
       // onGenerateRoute: _routeGenerate,
       themeMode: ThemeMode.system,
@@ -40,9 +37,7 @@ class MyApp extends StatelessWidget {
           focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(12),borderSide: const BorderSide(color: Colors.black)),
           errorBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(12),borderSide: const BorderSide(color: Colors.red)),
         ),
-        appBarTheme: const AppBarTheme(
-          centerTitle: true,
-        )
+
     );
 
 
@@ -58,6 +53,7 @@ class MyApp extends StatelessWidget {
             elevation: 5,
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12),),
             foregroundColor: Colors.black,
+            backgroundColor: Colors.deepPurpleAccent.shade100,
 
           ),
         ),
@@ -69,31 +65,9 @@ class MyApp extends StatelessWidget {
         ),
         appBarTheme: const AppBarTheme(
           centerTitle: true,
+          toolbarHeight: 80
         )
     );
   }
 
-  //make materialpageroute nullble
-/*
-  MaterialPageRoute? _routeGenerate(RouteSettings settings){
-    Widget? widget;
-    switch (settings.name){
-      case productListScreen.routeName:
-        widget = const productListScreen();
-        break;
-      case AddProductScreen.routeName:
-        widget = const AddProductScreen();
-        break;
-      case UpdateProductScreen.routeName:
-        List<Product> args = settings.arguments as List<Product>;
-        widget = UpdateProductScreen(product: args,);
-        break;
-    }
-    if(widget != null){
-      return MaterialPageRoute(builder: (context) =>  widget!,);
-    }
-    return null;
-
-  }
-*/
 }

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:ostad_project/add_Product_Screen.dart';
 import 'package:ostad_project/update_Product_Screen.dart';
 import 'package:http/http.dart';
@@ -30,6 +31,7 @@ class _productListScreenState extends State<productListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.deepPurpleAccent.shade100,
         onPressed: () async{
           final popResult=await Navigator.push(context, MaterialPageRoute(builder: (context) {
             return const AddProductScreen();
@@ -45,12 +47,17 @@ class _productListScreenState extends State<productListScreen> {
         child: const Icon(Icons.add),
       ),
       appBar: AppBar(
-        title: const Text('Product List'),
+        backgroundColor: Colors.deepPurpleAccent.shade100,
+        title: const Text('Product List',style: TextStyle(fontWeight:FontWeight.bold),),
         actions: [
           IconButton(onPressed: () {}, icon: const Icon(Icons.add))
         ],
       ),
-      body: RefreshIndicator(
+      body: LiquidPullToRefresh(
+        height: 200,
+        backgroundColor: Colors.white,
+        color: Colors.deepPurpleAccent.shade100,
+        animSpeedFactor: 2,
         onRefresh: _getProductList,
         child: Visibility(
           visible: _productListInProgress == false,
@@ -111,9 +118,9 @@ class _productListScreenState extends State<productListScreen> {
 
   Widget _buildProductList(PorudctModel product) {
     return ListTile(
-      /*leading: Image.network(
-                  product.image ,
-                  height: 80, width: 80, fit: BoxFit.fill,),*/
+      leading: Image.network(
+                  product.img?? '' ,
+                  height: 80, width: 80, fit: BoxFit.fill,),
       title: Text(product.productName ?? 'Unknown'),
       subtitle:  Wrap(
         spacing: 16,

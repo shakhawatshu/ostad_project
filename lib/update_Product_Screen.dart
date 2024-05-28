@@ -40,7 +40,8 @@ class _UpdateProductScreenState extends State<UpdateProductScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Update Product'),
+        title: const Text('Update Product',style: TextStyle(fontWeight: FontWeight.bold),),
+        backgroundColor: Colors.deepPurpleAccent.shade100,
       ),
       body: SingleChildScrollView(
         child: Padding(
