@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:ostad_project/add_Product_Screen.dart';
-import 'package:ostad_project/product.dart';
 import 'package:ostad_project/update_Product_Screen.dart';
 import 'package:http/http.dart';
+import 'package:ostad_project/product_model_data.dart';
 
 class productListScreen extends StatefulWidget {
   const productListScreen({super.key});
@@ -18,7 +18,7 @@ class productListScreen extends StatefulWidget {
 class _productListScreenState extends State<productListScreen> {
   bool _productListInProgress = false;
 
-  List<Product> productList = [];
+  List<PorudctModel> productList = [];
 
   @override
   void initState() {
@@ -89,17 +89,11 @@ class _productListScreenState extends State<productListScreen> {
       //Step no.2 Get the list from response body using list key(we can find it on json body)
       final jsonDecodeData = decodeData['data'];
       //Step no.3 Run loop for grab values from decode data
-      for (Map<String, dynamic> p in jsonDecodeData) {
-        Product product = Product(
-            productId: p['_id'] ?? '',
-            productName: p['ProductName'] ?? 'Unknown',
-            productCode: p['ProductCode'] ?? '',
-            image: p['Img'] ?? '',
-            unitPrice: p['UnitPrice'] ?? '',
-            quantity: p['Qty'] ?? '',
-            totalPrice: p['TotalPrice'] ?? '',
-        );
-        productList.add(product);
+      for (Map<String, dynamic> json in jsonDecodeData) {
+        PorudctModel porudctModel= PorudctModel.fromJson(json);
+        productList.add(porudctModel);
+
+
       }
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -112,17 +106,17 @@ class _productListScreenState extends State<productListScreen> {
     });
   }
 
-  Widget _buildProductList(Product product) {
+  Widget _buildProductList(PorudctModel product) {
     return ListTile(
       /*leading: Image.network(
                   product.image ,
                   height: 80, width: 80, fit: BoxFit.fill,),*/
-      title: Text(product.productName),
+      title: Text(product.productName ?? 'Unknown'),
       subtitle:  Wrap(
         spacing: 16,
         children: [
           Text('Unit Price:\$ ${product.unitPrice}'),
-          Text('Quantity: ${product.quantity}'),
+          Text('Quantity: ${product.qty}'),
           Text('Total Price\$ ${product.totalPrice}'),
         ],
       ),
@@ -140,7 +134,7 @@ class _productListScreenState extends State<productListScreen> {
               icon: const Icon(Icons.edit)),
           IconButton(
               onPressed: () {
-                _showDeleteAlertDialog(product.productId);
+                _showDeleteAlertDialog(product.sId?? '');
               },
               icon: const Icon(Icons.delete_forever_outlined)),
         ],
@@ -197,5 +191,3 @@ class _productListScreenState extends State<productListScreen> {
 
   }
 }
-
-

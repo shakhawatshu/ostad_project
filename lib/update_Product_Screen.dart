@@ -1,12 +1,12 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
-import 'package:ostad_project/product.dart';
+import 'package:ostad_project/product_model_data.dart';
 
 class UpdateProductScreen extends StatefulWidget {
   const UpdateProductScreen({super.key, required this.product,});
   static const String routeName= '/updateproductscreen';
-  final Product product;
+  final PorudctModel product;
 
   @override
   State<UpdateProductScreen> createState() => _UpdateProductScreenState();
@@ -28,12 +28,12 @@ class _UpdateProductScreenState extends State<UpdateProductScreen> {
   @override
   void initState() {
     super.initState();
-    _nameTEController.text= widget.product.productName;
-    _productCodeTEController.text= widget.product.productCode;
-    _quantityTEController.text= widget.product.quantity;
-    _unitPriceTEController.text= widget.product.unitPrice;
-    _totalPriceTEController.text= widget.product.totalPrice;
-    _photoTEController.text= widget.product.image;
+    _nameTEController.text= widget.product.productName ?? 'unknown';
+    _productCodeTEController.text= widget.product.productCode?? 'unknown';
+    _quantityTEController.text= widget.product.qty?? 'unknown';
+    _unitPriceTEController.text= widget.product.unitPrice ?? 'unknown';
+    _totalPriceTEController.text= widget.product.totalPrice ?? 'unknown';
+    _photoTEController.text= widget.product.img ?? 'unknown';
 
   }
   @override
@@ -164,7 +164,7 @@ class _UpdateProductScreenState extends State<UpdateProductScreen> {
       "TotalPrice":_totalPriceTEController.text,
       "UnitPrice":_unitPriceTEController.text,
     };
-     String updateProductListUrl='https://crud.teamrabbil.com/api/v1/UpdateProduct/${widget.product.productId}';
+     String updateProductListUrl='https://crud.teamrabbil.com/api/v1/UpdateProduct/${widget.product.sId}';
      Uri uri =Uri.parse(updateProductListUrl);
      Response response= await post(uri, headers: {'content-type':'application/json'},body: jsonEncode(inputDate));
      print(response.statusCode);
@@ -187,12 +187,7 @@ class _UpdateProductScreenState extends State<UpdateProductScreen> {
 @override
   void dispose() {
     super.dispose();
-    _photoTEController.dispose();
-    _nameTEController.dispose();
-    _productCodeTEController.dispose();
-    _quantityTEController.dispose();
-    _unitPriceTEController.dispose();
-    _totalPriceTEController.dispose();
+
   }
 
 
