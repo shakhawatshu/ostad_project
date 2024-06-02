@@ -1,9 +1,8 @@
-class TodoData{
+class Todo{
   String title;
   String description;
   DateTime time;
   bool isDone;
 
-  TodoData(this.title, this.description, this.time, [this.isDone= false]);
-
+  Todo(this.title, this.description, this.time, [this.isDone= false]);
 }

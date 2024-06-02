@@ -1,34 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:ostad_project/entities/todo_data.dart';
 
-class TodoItem extends StatelessWidget {
-  const TodoItem({
+class TodoListTile extends StatelessWidget {
+  const TodoListTile({
     super.key,
-    required this.todoData,
+    required this.todo,
     required this.onIconButtonPressed,
   });
 
-  final TodoData todoData;
+  final Todo todo;
   final VoidCallback onIconButtonPressed;
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 10,
-      margin: EdgeInsets.symmetric(vertical: 6, horizontal: 12),
+      margin: EdgeInsets.symmetric(
+        vertical: 5,
+        horizontal: 12,
+      ),
+      color: _getColor(todo.isDone),
+      surfaceTintColor: _getSurfaceTintColor(todo.isDone),
+      elevation: 12,
       child: ListTile(
           title: Text(
-            todoData.title,
-            style: TextStyle(decoration: _getTextDecoration(todoData.isDone)),
+            todo.title,
+            style: TextStyle(decoration: _getTextDecoration(todo.isDone)),
           ),
           subtitle: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(todoData.description),
-              Text(todoData.time.toString()),
+              Text(todo.description),
+              Text(todo.time.toString())
             ],
           ),
-          trailing: _buildRoundedIconButton(todoData.isDone)),
+          trailing: _buildRoundedIconButton(todo.isDone)),
     );
   }
 
@@ -36,7 +41,9 @@ class TodoItem extends StatelessWidget {
     return GestureDetector(
       onTap: onIconButtonPressed,
       child: CircleAvatar(
-        child: Icon(_getIcon(true)),
+        child: Icon(
+          _getIcon(todo.isDone),
+        ),
       ),
     );
   }
@@ -47,5 +54,13 @@ class TodoItem extends StatelessWidget {
 
   TextDecoration? _getTextDecoration(bool isDone) {
     return isDone ? TextDecoration.lineThrough : null;
+  }
+
+  Color? _getColor(bool isDone) {
+    return isDone ? Colors.green.shade200 : null;
+  }
+
+  Color? _getSurfaceTintColor(bool isDone) {
+    return isDone ? Colors.green : null;
   }
 }

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:ostad_project/entities/todo_data.dart';
 
 class AddNewTodoScreen extends StatefulWidget {
-  const AddNewTodoScreen({super.key});
+  const AddNewTodoScreen({super.key, required this.onAddTodo});
+
+  final Function(Todo) onAddTodo;
 
   @override
   State<AddNewTodoScreen> createState() => _AddNewTodoScreenState();
@@ -10,15 +13,14 @@ class AddNewTodoScreen extends StatefulWidget {
 final TextEditingController _titleTEController= TextEditingController();
 final TextEditingController _descriptionTEController= TextEditingController();
 
-final GlobalKey<FormState> _formKey =GlobalKey<FormState>();
+final GlobalKey<FormState> _formKey= GlobalKey<FormState>();
 
 class _AddNewTodoScreenState extends State<AddNewTodoScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Add new Todo'),
-        centerTitle: true,
+        title: Text('Add Todo'),
       ),
       body: Form(
         key: _formKey,
@@ -27,65 +29,64 @@ class _AddNewTodoScreenState extends State<AddNewTodoScreen> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextFormField(
+
                 validator: (String? value){
                   if(value?.trim().isEmpty ?? true){
-                    return 'Enter Title';
+                    return'Enter Title';
                   }
                   return null;
                 },
                 controller: _titleTEController,
                 decoration: InputDecoration(
+                  label: Text('Title'),
                   border: OutlineInputBorder(
-
-
                   ),
                   errorBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.red)
-                  ),
-                  labelText: 'Title',
+                  )
                 ),
               ),
             ),
-            SizedBox(height: 12,),
+            SizedBox(
+              height: 6,
+            ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextFormField(
                 validator: (String? value){
                   if(value?.trim().isEmpty ?? true){
-                    return 'Enter Description';
+                    return'Enter Title';
                   }
                   return null;
                 },
                 controller: _descriptionTEController,
+                maxLength: 200,
                 decoration: InputDecoration(
-                  border: OutlineInputBorder(
-
-                  ),
-                  errorBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.red)
-                  ),
-
-                  labelText: 'Description',
+                    label: Text('Description'),
+                    border: OutlineInputBorder(
+                    ),
+                    errorBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.red)
+                    )
                 ),
               ),
             ),
-            SizedBox(height: 12,),
+
+            SizedBox(
+              height: 6,
+            ),
             ElevatedButton(onPressed: (){
               if(_formKey.currentState!.validate()){
+                Todo todo= Todo(_titleTEController.text.trim(), _descriptionTEController.text.trim(), DateTime.now());
+                widget.onAddTodo(todo);
+                Navigator.pop(context);
 
               }
+            }, child: Text('ADD'))
 
-            }, child:Text('Add New'))
           ],
         ),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    _titleTEController.dispose();
-    _descriptionTEController.dispose();
-    super.dispose();
   }
 }
