@@ -22,7 +22,7 @@ class _TodoScreenState extends State<TodoScreen>
       length: 3,
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Todo List'),
+          title: const Text('Todo List'),
           centerTitle: true,
           bottom: _buildTodoTabBar(),
         ),
@@ -35,10 +35,30 @@ class _TodoScreenState extends State<TodoScreen>
               },
               onStatusChange: (int index) {
                 _toggleStatusChange(index);
-              }, todoList: _todoList,
+              },
+              todoList: _todoList,
             ),
-            UndoneTodoScreenTab(),
-            DoneTodoScreenTab(),
+            UndoneTodoScreenTab(
+              onDelete: (int index) {
+                _deleteTodo(index);
+              },
+              onStatusChange: (int index) {
+                _toggleStatusChange(index);
+              },
+              todoList: _todoList
+                  .where(
+                    (item) => item.isDone == false,
+                  )
+                  .toList(),
+            ),
+            DoneTodoScreenTab(
+              onDelete: (int index) {
+                _deleteTodo(index);
+              },
+              onStatusChange: (int index) {
+                _toggleStatusChange(index);
+              }, todoList: _todoList.where((item) => item.isDone == true,).toList(),
+            ),
           ],
         ),
       ),
@@ -51,17 +71,19 @@ class _TodoScreenState extends State<TodoScreen>
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => AddNewTodoScreen(onAddTodo:_addNewTodo,),
+            builder: (context) => AddNewTodoScreen(
+              onAddTodo: _addNewTodo,
+            ),
           ),
         );
       },
-      icon: Icon(Icons.add),
-      label: Text('Add'),
+      icon: const Icon(Icons.add),
+      label: const Text('Add'),
     );
   }
 
   TabBar _buildTodoTabBar() {
-    return TabBar(
+    return const TabBar(
       tabs: [
         Tab(
           text: 'All',

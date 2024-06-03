@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:ostad_project/entities/todo_data.dart';
 
 class TodoListTile extends StatelessWidget {
@@ -14,7 +15,7 @@ class TodoListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: EdgeInsets.symmetric(
+      margin: const EdgeInsets.symmetric(
         vertical: 5,
         horizontal: 12,
       ),
@@ -30,7 +31,7 @@ class TodoListTile extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(todo.description),
-              Text(todo.time.toString())
+              Text(DateFormat.yMEd().add_jms().format(todo.time))
             ],
           ),
           trailing: _buildRoundedIconButton(todo.isDone)),

@@ -89,4 +89,11 @@ class _AddNewTodoScreenState extends State<AddNewTodoScreen> {
       ),
     );
   }
+@override
+  void dispose() {
+    _titleTEController.clear();
+    _descriptionTEController.clear();
+    super.dispose();
+  }
 }
+

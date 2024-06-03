@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ostad_project/entities/todo_data.dart';
+import 'package:ostad_project/ui/widget/empty_list_widget.dart';
 import 'package:ostad_project/ui/widget/todo_item.dart';
 
 class AllTodoScreenTab extends StatelessWidget {
@@ -15,6 +16,9 @@ class AllTodoScreenTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if(todoList.isEmpty){
+      return const EmptyListWidget();
+    }
     return ListView.builder(
       itemCount: todoList.length,
       itemBuilder: (context, index) {
