@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:ostad_project/ui/screens/contact_book_screen.dart';
 
-class ContactBookApp extends StatelessWidget {
-  const ContactBookApp({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
