@@ -34,9 +34,8 @@ class ContactBookApp extends StatelessWidget {
           titleTextStyle: TextStyle(
               fontWeight: FontWeight.bold, color: Colors.white, fontSize: 24),
         ),
-        inputDecorationTheme: const InputDecorationTheme(
+        inputDecorationTheme:  InputDecorationTheme(
             border: OutlineInputBorder(),
-            errorBorder:
-                OutlineInputBorder(borderSide: BorderSide(color: Colors.red))));
+            ));
   }
 }
