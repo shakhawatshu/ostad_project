@@ -17,14 +17,14 @@ class MyApp extends StatelessWidget {
     return ThemeData(
         elevatedButtonTheme: ElevatedButtonThemeData(
             style: ElevatedButton.styleFrom(
-          fixedSize: Size.fromWidth(double.maxFinite),
+          fixedSize: const Size.fromWidth(double.maxFinite),
           backgroundColor: Colors.blueGrey,
           foregroundColor: Colors.white,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
           ),
               elevation: 15,
-              padding: EdgeInsets.only(top: 10,bottom: 10,),
+              padding: const EdgeInsets.only(top: 10,bottom: 10,),
         )),
         appBarTheme: const AppBarTheme(
           color: Colors.blueGrey,
@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
           titleTextStyle: TextStyle(
               fontWeight: FontWeight.bold, color: Colors.white, fontSize: 24),
         ),
-        inputDecorationTheme:  InputDecorationTheme(
+        inputDecorationTheme:  const InputDecorationTheme(
             border: OutlineInputBorder(),
             ));
   }

@@ -10,6 +10,7 @@ class ContactBookScreen extends StatefulWidget {
 
 final TextEditingController _nameTEController = TextEditingController();
 final TextEditingController _numberTEController = TextEditingController();
+final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
 List<ContactListData> contactlist = [];
 
@@ -22,63 +23,80 @@ class _ContactBookScreenState extends State<ContactBookScreen> {
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8),
-        child: Column(
-          children: [
-            Column(
-              children: [
-                const SizedBox(
-                  height: 15,
-                ),
-                TextFormField(
-                  controller: _nameTEController,
-                  decoration: const InputDecoration(
-                    labelText: 'Name',
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: [
+              Column(
+                children: [
+                  const SizedBox(
+                    height: 15,
                   ),
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                TextFormField(
-                  keyboardType: TextInputType.number,
-                  controller: _numberTEController,
-                  decoration: const InputDecoration(
-                    labelText: 'Number',
+                  TextFormField(
+                    validator: (String? value) {
+                      if (value?.trim().isEmpty ?? true) {
+                        return 'Enter Name';
+                      }
+                      return null;
+                    },
+                    controller: _nameTEController,
+                    decoration: const InputDecoration(
+                      labelText: 'Name',
+                    ),
                   ),
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-              ],
-            ),
-            ElevatedButton(
-              onPressed: () {
-                _addContact();
-                _nameTEController.clear();
-                _numberTEController.clear();
-              },
-              child: const Text(
-                'Add',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
-                ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  TextFormField(
+                    validator: (String? value) {
+                      if (value?.trim().isEmpty ?? true) {
+                        return 'Enter Number';
+                      }
+                      return null;
+                    },
+                    keyboardType: TextInputType.number,
+                    controller: _numberTEController,
+                    decoration: const InputDecoration(
+                      labelText: 'Number',
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                ],
               ),
-            ),
-            const SizedBox(
-              height: 38,
-            ),
-            const Divider(
-              color: Colors.grey,
-            ),
-            Expanded(
-              child: ListView.builder(
-                itemCount: contactlist.length,
-                itemBuilder: (context, index) {
-                  return _buildContactBookListTile(index);
+              ElevatedButton(
+                onPressed: () {
+                  if (_formKey.currentState!.validate()) {
+                    _addContact();
+                    _nameTEController.clear();
+                    _numberTEController.clear();
+                  }
                 },
+                child: const Text(
+                  'Add',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                  ),
+                ),
               ),
-            )
-          ],
+              const SizedBox(
+                height: 38,
+              ),
+              const Divider(
+                color: Colors.grey,
+              ),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: contactlist.length,
+                  itemBuilder: (context, index) {
+                    return _buildContactBookListTile(index);
+                  },
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
