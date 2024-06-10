@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ostad_project/ui/screens/splash_screen.dart';
+import 'package:ostad_project/ui/screens/auth/splash_screen.dart';
 import 'package:ostad_project/utility/app_design_data.dart';
 
 class TaskManagerApp extends StatelessWidget {
@@ -13,6 +13,9 @@ class TaskManagerApp extends StatelessWidget {
             fillColor: AppDesignData.whiteColor,
             filled: true,
             border: OutlineInputBorder(),
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: AppDesignData.defaultThemeColor),
+            ),
             errorBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.red),
             ),
@@ -23,14 +26,20 @@ class TaskManagerApp extends StatelessWidget {
           ),
           textTheme: const TextTheme(
             titleLarge: TextStyle(
+              letterSpacing: 1,
               fontWeight: FontWeight.bold,
-              fontSize: 35,
+              fontSize: 30,
+            ),
+            titleSmall: TextStyle(
+              letterSpacing: 1,
+              color: Colors.grey,
+              fontWeight: FontWeight.w600,
             ),
           ),
           textButtonTheme: TextButtonThemeData(
             style: TextButton.styleFrom(
               foregroundColor: Colors.grey,
-              textStyle: TextStyle(
+              textStyle: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
               ),

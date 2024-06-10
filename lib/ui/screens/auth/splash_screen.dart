@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:ostad_project/ui/screens/sign_in_screen.dart';
+import 'package:ostad_project/ui/screens/auth/sign_in_screen.dart';
 import 'package:ostad_project/utility/assets_path.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -18,7 +18,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> _moveToNextScreen() async {
-    await Future.delayed(const Duration(seconds: 10));
+    await Future.delayed(const Duration(seconds: 4));
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
