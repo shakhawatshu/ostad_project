@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:ostad_project/ui/screens/auth/forget_password_screen.dart';
 import 'package:ostad_project/ui/screens/auth/sign_up_screen.dart';
+import 'package:ostad_project/ui/screens/main_bottom_navigation_screen.dart';
 import 'package:ostad_project/ui/widget/background_widget.dart';
 import 'package:ostad_project/utility/app_design_data.dart';
 
@@ -56,7 +57,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     height: 26,
                   ),
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed:_gotoNextScreen,
                     child: const Icon(Icons.arrow_circle_right_outlined),
                   ),
                   const SizedBox(
@@ -69,7 +70,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   )),
                   Center(
                     child: RichText(
-                      text:  TextSpan(
+                      text: TextSpan(
                           style: const TextStyle(
                               color: Colors.black,
                               letterSpacing: 1.5,
@@ -82,9 +83,10 @@ class _SignInScreenState extends State<SignInScreen> {
                                   color: AppDesignData.defaultThemeColor,
                                   fontWeight: FontWeight.bold),
                               text: ' Sign up',
-                              recognizer:TapGestureRecognizer()..onTap = (){
-                                _gotoSignUpScreen();
-                              } ,
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () {
+                                  _gotoSignUpScreen();
+                                },
                             )
                           ]),
                     ),
@@ -94,6 +96,15 @@ class _SignInScreenState extends State<SignInScreen> {
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  void _gotoNextScreen() {
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const MainBottomNavigationScreen(),
       ),
     );
   }
