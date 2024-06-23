@@ -1,15 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:ostad_project/ui/screens/update_profile_screen.dart';
 import 'package:ostad_project/ui/widget/network_cached_image.dart';
 import 'package:ostad_project/utility/app_design_data.dart';
 
-AppBar profileAppBar() {
+AppBar profileAppBar(context, [bool fromUpdateProfile=false]) {
   return AppBar(
     toolbarHeight: 80,
     backgroundColor: AppDesignData.defaultThemeColor,
     leading: Padding(
-      padding: const EdgeInsets.only(left: 11),
-      child: CircleAvatar(
-        child: NetworkCachedImage(url: ''),
+      padding: EdgeInsets.only(left: 11),
+      child: GestureDetector(
+        onTap: (){
+          if(fromUpdateProfile){
+            return;
+          }
+          Navigator.push(context, MaterialPageRoute(builder: (context)=> UpdateProfileScreen(),),);
+        },
+        child: CircleAvatar(
+          child: NetworkCachedImage(url: ''),
+        ),
       ),
     ),
     title: const Column(

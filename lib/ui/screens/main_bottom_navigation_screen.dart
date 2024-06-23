@@ -27,7 +27,7 @@ class _MainBottomNavigationScreenState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: profileAppBar(),
+      appBar: profileAppBar(context),
       body: _screens[_screenIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _screenIndex,

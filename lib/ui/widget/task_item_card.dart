@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ostad_project/ui/screens/update_profile_screen.dart';
-
 class TaskItemCard extends StatelessWidget {
   const TaskItemCard({
     super.key,
@@ -34,14 +32,7 @@ class TaskItemCard extends StatelessWidget {
                         onPressed: () {},
                         icon: Icon(Icons.delete_forever_outlined)),
                     IconButton(
-                        onPressed:(){
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => UpdateProfileScreen(),
-                            ),
-                          );
-                        }, icon: Icon(Icons.edit)),
+                        onPressed:(){}, icon: Icon(Icons.edit)),
                   ],
                 ),
               ],
