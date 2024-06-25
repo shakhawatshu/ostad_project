@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:ostad_project/ui/controllers/auth_controllers.dart';
 import 'package:ostad_project/ui/screens/auth/sign_in_screen.dart';
+import 'package:ostad_project/ui/screens/main_bottom_navigation_screen.dart';
 import 'package:ostad_project/utility/assets_path.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -19,12 +21,19 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Future<void> _moveToNextScreen() async {
     await Future.delayed(const Duration(seconds: 4));
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const SignInScreen(),
-      ),
-    );
+
+    bool isUserLoggedIn = await AuthControllers.checkAuthState();
+
+    if (mounted) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => isUserLoggedIn
+              ? const MainBottomNavigationScreen()
+              : const SignInScreen(),
+        ),
+      );
+    }
   }
 
   @override
