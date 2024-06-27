@@ -9,6 +9,7 @@ import 'package:ostad_project/ui/screens/auth/forget_password_screen.dart';
 import 'package:ostad_project/ui/screens/auth/sign_up_screen.dart';
 import 'package:ostad_project/ui/screens/main_bottom_navigation_screen.dart';
 import 'package:ostad_project/ui/widget/background_widget.dart';
+import 'package:ostad_project/ui/widget/circle_progress_indicator_widget.dart';
 import 'package:ostad_project/ui/widget/snackbar.dart';
 import 'package:ostad_project/utility/app_constants.dart';
 import 'package:ostad_project/utility/app_design_data.dart';
@@ -105,7 +106,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         Visibility(
                           visible: _signInApiInProgress == false,
                           replacement: const Center(
-                            child: CircularProgressIndicator(),
+                            child: CircleProgressIndicatorWidget(),
                           ),
                           child: ElevatedButton(
                             onPressed: _gotoNextScreen,
@@ -182,7 +183,7 @@ class _SignInScreenState extends State<SignInScreen> {
 
     if (networkResponse.isSuccess) {
       LoginModel loginModel =LoginModel.fromJson(networkResponse.responseData);
-      await AuthControllers.saveAccessToken(loginModel.token!);
+      await AuthControllers.saveUserAccessToken(loginModel.token!);
       await AuthControllers.saveUserData(loginModel.userModel!);
       if (mounted) {
         Navigator.pushReplacement(

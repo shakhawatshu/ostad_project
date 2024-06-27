@@ -44,7 +44,7 @@ AppBar profileAppBar(context, [bool fromUpdateProfile = false]) {
     actions: [
       IconButton(
         onPressed: ()async{
-          await AuthControllers.clearAllData();
+          await AuthControllers.clearUserData();
           Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(builder: (context) => const SignInScreen()),

@@ -3,10 +3,12 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart';
 import 'package:ostad_project/data/network_caller/network_response.dart';
+import 'package:ostad_project/ui/controllers/auth_controllers.dart';
 
 class NetworkCaller {
   static Future<NetworkResponse> getRequest(String url) async {
-    Response response = await get(Uri.parse(url));
+    Response response = await get(Uri.parse(url),
+        headers: {'token': AuthControllers.accessToken});
     try {
       if (response.statusCode == 200) {
         final decodeData = jsonDecode(response.body);
@@ -31,16 +33,19 @@ class NetworkCaller {
   }
 
   static Future<NetworkResponse> postRequest(
-      String url, {
-        Map<String, dynamic>? body,
-      }) async {
+    String url, {
+    Map<String, dynamic>? body,
+  }) async {
     try {
       debugPrint(url);
       debugPrint(body.toString());
       Response response = await post(
         Uri.parse(url),
         body: jsonEncode(body),
-        headers: {'Content-type': 'Application/json'},
+        headers: {
+          'Content-type': 'Application/json',
+          'token': AuthControllers.accessToken
+        },
       );
       debugPrint(response.statusCode.toString());
       debugPrint(response.body);

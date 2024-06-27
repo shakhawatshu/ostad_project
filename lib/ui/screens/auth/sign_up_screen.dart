@@ -4,6 +4,7 @@ import 'package:ostad_project/data/network_caller/network_caller.dart';
 import 'package:ostad_project/data/network_caller/network_response.dart';
 import 'package:ostad_project/data/network_path_url/urls.dart';
 import 'package:ostad_project/ui/widget/background_widget.dart';
+import 'package:ostad_project/ui/widget/circle_progress_indicator_widget.dart';
 import 'package:ostad_project/ui/widget/snackbar.dart';
 import 'package:ostad_project/utility/app_constants.dart';
 import 'package:ostad_project/utility/app_design_data.dart';
@@ -150,7 +151,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         ),
                         Visibility(
                           visible: _registrationInProgress == false,
-                          replacement: const Center(child: CircularProgressIndicator()),
+                          replacement: const CircleProgressIndicatorWidget(),
                           child: ElevatedButton(
                             onPressed: () {
                               if (_formKey.currentState!.validate()) {
