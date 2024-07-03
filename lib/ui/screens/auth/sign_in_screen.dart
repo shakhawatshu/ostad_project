@@ -221,8 +221,6 @@ class _SignInScreenState extends State<SignInScreen> {
 
   @override
   void dispose() {
-    _emailTEController.dispose();
-    _passwordTEController.dispose();
     super.dispose();
   }
 }

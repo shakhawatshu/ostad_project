@@ -121,6 +121,7 @@ class _AddNewTaskScreenState extends State<AddNewTaskScreen> {
     if (response.isSuccess) {
       if (mounted) {
         showSnackBarMessage(context, 'New Task Added');
+        _textFieldClear();
       }
     } else {
       if (mounted) {
@@ -128,6 +129,11 @@ class _AddNewTaskScreenState extends State<AddNewTaskScreen> {
             context, response.errorMessage ?? 'Add New Task Failed, Try Again');
       }
     }
+  }
+
+  void _textFieldClear(){
+    _titleTEController.clear();
+    _descriptionTEController.clear();
   }
 
   @override

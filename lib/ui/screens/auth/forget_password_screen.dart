@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:ostad_project/ui/screens/auth/pin_verification_screen.dart';
 import 'package:ostad_project/ui/widget/background_widget.dart';
+import 'package:ostad_project/utility/app_constants.dart';
 import 'package:ostad_project/utility/app_design_data.dart';
 
 class ForgetPasswordScreen extends StatefulWidget {
@@ -12,6 +13,7 @@ class ForgetPasswordScreen extends StatefulWidget {
 }
 
 final TextEditingController _emailTEController = TextEditingController();
+final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
 class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
   @override
@@ -42,18 +44,38 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                   const SizedBox(
                     height: 15,
                   ),
-                  TextFormField(
-                    controller: _emailTEController,
-                    decoration: const InputDecoration(
-                      hintText: 'Email',
+                  Form(
+                    key: _formKey,
+                    child: Column(
+                      children: [
+                        TextFormField(
+                          controller: _emailTEController,
+                          decoration: const InputDecoration(
+                            hintText: 'Email',
+                          ),
+                          validator: (String? value) {
+                            if(value?.trim().isEmpty ?? true){
+                              return 'Enter Email';
+                            }
+                            if(AppConstants.emailRegEx.hasMatch(value!) == false){
+                              return 'Enter valid Email';
+                            }
+                            return null;
+                          },
+                        ),
+                        const SizedBox(
+                          height: 26,
+                        ),
+                        ElevatedButton(
+                          onPressed: (){
+                            if(_formKey.currentState!.validate()){
+
+                            }
+                          },
+                          child: const Icon(Icons.arrow_circle_right_outlined),
+                        ),
+                      ],
                     ),
-                  ),
-                  const SizedBox(
-                    height: 26,
-                  ),
-                  ElevatedButton(
-                    onPressed: _gotoPinVerificationScreen,
-                    child: const Icon(Icons.arrow_circle_right_outlined),
                   ),
                   const SizedBox(
                     height: 40,

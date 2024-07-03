@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:ostad_project/data/models/task_list_model.dart';
 class TaskItemCard extends StatelessWidget {
   const TaskItemCard({
-    super.key,
+    super.key, required this.taskListModel,
   });
-
+  final TaskListModel taskListModel;
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -11,28 +12,28 @@ class TaskItemCard extends StatelessWidget {
       color: Colors.white,
       child: ListTile(
         title: Text(
-          'Task title',
+          taskListModel.title ?? '',
           style:
-          TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+          const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
         ),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Task subtitle'),
-            Text('Date: 16-06-2024'),
+            Text(taskListModel.description ?? ''),
+            Text(taskListModel.createdDate ?? ''),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Chip(
+                const Chip(
                   label: Text('New'),
                 ),
                 ButtonBar(
                   children: [
                     IconButton(
                         onPressed: () {},
-                        icon: Icon(Icons.delete_forever_outlined)),
+                        icon: const Icon(Icons.delete_forever_outlined)),
                     IconButton(
-                        onPressed:(){}, icon: Icon(Icons.edit)),
+                        onPressed:(){}, icon: const Icon(Icons.edit)),
                   ],
                 ),
               ],

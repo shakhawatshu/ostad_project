@@ -17,7 +17,7 @@ class TaskSummaryCard extends StatelessWidget {
         child: Column(
           children: [
             Text(taskCount,style: Theme.of(context).textTheme.titleLarge,),
-            Text(title,style: Theme.of(context).textTheme.titleSmall,),
+            Text(title,style: Theme.of(context).textTheme.titleMedium,),
           ],
         ),
       ),

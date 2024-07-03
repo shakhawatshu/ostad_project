@@ -1,8 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:ostad_project/ui/controllers/auth_controllers.dart';
 import 'package:ostad_project/ui/screens/auth/sign_in_screen.dart';
 import 'package:ostad_project/ui/screens/update_profile_screen.dart';
-import 'package:ostad_project/ui/widget/network_cached_image.dart';
 import 'package:ostad_project/utility/app_design_data.dart';
 
 AppBar profileAppBar(context, [bool fromUpdateProfile = false]) {
@@ -23,8 +24,15 @@ AppBar profileAppBar(context, [bool fromUpdateProfile = false]) {
             ),
           );
         },
-        child: const CircleAvatar(
-          child: NetworkCachedImage(url: ''),
+        child: Padding(
+          padding: const EdgeInsets.all(2),
+          child: CircleAvatar(
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(50),
+              child: Image.memory(base64Decode(AuthControllers.userData?.photo ?? ''),
+              ),
+            ),
+          ),
         ),
       ),
     ),
@@ -33,17 +41,17 @@ AppBar profileAppBar(context, [bool fromUpdateProfile = false]) {
       children: [
         Text(
           AuthControllers.userData?.fullName ?? '',
-          style: const TextStyle(fontSize: 18, color: Colors.white),
+          style: const TextStyle(fontSize: 15, color: Colors.white),
         ),
         Text(
           AuthControllers.userData?.email ?? '',
-          style: const TextStyle(fontSize: 16, color: Colors.white),
+          style: const TextStyle(fontSize: 13, color: Colors.white),
         )
       ],
     ),
     actions: [
       IconButton(
-        onPressed: ()async{
+        onPressed: () async {
           await AuthControllers.clearUserData();
           Navigator.pushAndRemoveUntil(
             context,

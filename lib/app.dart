@@ -2,13 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:ostad_project/ui/screens/auth/splash_screen.dart';
 import 'package:ostad_project/utility/app_design_data.dart';
 
-class TaskManagerApp extends StatelessWidget {
+class TaskManagerApp extends StatefulWidget {
   const TaskManagerApp({super.key});
 
+  static GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
+  @override
+  State<TaskManagerApp> createState() => _TaskManagerAppState();
+}
+
+class _TaskManagerAppState extends State<TaskManagerApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      navigatorKey: TaskManagerApp.navigatorKey,
+
       theme: ThemeData(
+        cardTheme: const CardTheme(elevation: 5,),
           inputDecorationTheme: const InputDecorationTheme(
             fillColor: AppDesignData.whiteColor,
             filled: true,
