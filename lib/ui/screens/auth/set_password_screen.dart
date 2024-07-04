@@ -1,11 +1,20 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:ostad_project/data/network_caller/network_caller.dart';
+import 'package:ostad_project/data/network_caller/network_response.dart';
+import 'package:ostad_project/data/network_path_url/urls.dart';
 import 'package:ostad_project/ui/screens/auth/sign_in_screen.dart';
 import 'package:ostad_project/ui/widget/background_widget.dart';
+import 'package:ostad_project/ui/widget/circle_progress_indicator_widget.dart';
+import 'package:ostad_project/ui/widget/snackbar.dart';
 import 'package:ostad_project/utility/app_design_data.dart';
 
 class SetPassWordScreen extends StatefulWidget {
-  const SetPassWordScreen({super.key});
+  const SetPassWordScreen(
+      {super.key, required this.userEmail, required this.otpCode});
+
+  final String userEmail;
+  final String otpCode;
 
   @override
   State<SetPassWordScreen> createState() => _SetPassWordScreenState();
@@ -14,6 +23,7 @@ class SetPassWordScreen extends StatefulWidget {
 final TextEditingController _passwordTEController = TextEditingController();
 final TextEditingController _passwordConfirmTEController =
     TextEditingController();
+bool _setPasswordImProgress = false;
 
 class _SetPassWordScreenState extends State<SetPassWordScreen> {
   @override
@@ -54,7 +64,7 @@ class _SetPassWordScreenState extends State<SetPassWordScreen> {
                     height: 12,
                   ),
                   TextFormField(
-                    controller: _passwordTEController,
+                    controller: _passwordConfirmTEController,
                     decoration: const InputDecoration(
                       hintText: 'Confirm Password',
                     ),
@@ -62,9 +72,22 @@ class _SetPassWordScreenState extends State<SetPassWordScreen> {
                   const SizedBox(
                     height: 26,
                   ),
-                  ElevatedButton(
-                    onPressed: () {},
-                    child: const Icon(Icons.arrow_circle_right_outlined),
+                  Visibility(
+                    visible: _setPasswordImProgress == false,
+                    replacement: const CircleProgressIndicatorWidget(),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        if (_passwordTEController.text ==
+                            _passwordConfirmTEController.text) {
+                          _resetPasswordApi();
+                        } else {
+                          if (mounted) {
+                            showSnackBarMessage(context, 'Password do not match');
+                          }
+                        }
+                      },
+                      child: const Icon(Icons.arrow_circle_right_outlined),
+                    ),
                   ),
                   const SizedBox(
                     height: 60,
@@ -85,7 +108,9 @@ class _SetPassWordScreenState extends State<SetPassWordScreen> {
                                     fontWeight: FontWeight.bold),
                                 text: ' Sign ip',
                                 recognizer: TapGestureRecognizer()
-                                  ..onTap = () {_gotoSignInScreen();})
+                                  ..onTap = () {
+                                    _gotoSignInScreen();
+                                  })
                           ]),
                     ),
                   )
@@ -98,6 +123,38 @@ class _SetPassWordScreenState extends State<SetPassWordScreen> {
     );
   }
 
+  Future<void> _resetPasswordApi() async {
+    _setPasswordImProgress = true;
+    if (mounted) {
+      setState(() {});
+    }
+
+    Map<String, dynamic> requestBody = {
+      "email": widget.userEmail,
+      "OTP": widget.otpCode,
+      "password": _passwordTEController.text,
+    };
+
+    final NetworkResponse response = await NetworkCaller.postRequest(
+        Urls.resetPasswordUrl,
+        body: requestBody);
+    if(response.isSuccess && response.responseData['status'] == 'success'){
+      if(mounted){
+        showSnackBarMessage(context, 'Reset password successfully');
+      }
+      _gotoSignInScreen();
+    }else{
+      if(mounted){
+        showSnackBarMessage(context, 'Reset password Failed!');
+      }
+    }
+    _setPasswordImProgress = false;
+    if(mounted){
+      setState(() {
+      });
+    }
+  }
+
   void _gotoSignInScreen() {
     Navigator.pushAndRemoveUntil(
       context,
@@ -105,7 +162,6 @@ class _SetPassWordScreenState extends State<SetPassWordScreen> {
       (route) => false,
     );
   }
-
 
   @override
   void dispose() {

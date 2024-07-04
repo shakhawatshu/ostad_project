@@ -23,7 +23,7 @@ class _CompletedTaskScreenState extends State<CompletedTaskScreen> {
   @override
   void initState() {
     super.initState();
-    _getNewTaskList();
+    _getCompletedTaskList();
   }
 
   @override
@@ -42,7 +42,10 @@ class _CompletedTaskScreenState extends State<CompletedTaskScreen> {
             child: ListView.builder(
               itemCount: completedTaskList.length,
               itemBuilder: (context, index) {
-                return TaskItemCard(taskListModel: completedTaskList[index],);
+                return TaskItemCard(taskListModel: completedTaskList[index],
+                    onUpdateTask: () {
+                      _getCompletedTaskList();
+                    });
               },
             ),
           ),
@@ -51,7 +54,7 @@ class _CompletedTaskScreenState extends State<CompletedTaskScreen> {
     );
   }
 
-  Future<void> _getNewTaskList() async {
+  Future<void> _getCompletedTaskList() async {
     _getCompletedTaskListInProgress = true;
     if (mounted) {
       setState(() {});}

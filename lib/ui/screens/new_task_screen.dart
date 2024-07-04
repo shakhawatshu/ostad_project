@@ -62,8 +62,11 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
                     itemCount: newTaskList.length,
                     itemBuilder: (context, index) {
                       return TaskItemCard(
-                        taskListModel: newTaskList[index],
-                      );
+                          taskListModel: newTaskList[index],
+                          onUpdateTask: () {
+                            _getTaskCountByStatus();
+                            _getNewTask();
+                          });
                     },
                   ),
                 ),
@@ -82,19 +85,18 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
   }
 
   Widget _buildTaskSummarySection() {
-    return  Visibility(
+    return Visibility(
       visible: _getTaskCountByStatusInProgress == false,
       replacement: const CircleProgressIndicatorWidget(),
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: Row(
-          children:taskCountList.map((e){
-            return TaskSummaryCard(
-              title: (e.sId ?? 'Unknown').toUpperCase(),
-              taskCount: e.sum.toString(),
-            );
-          }).toList()
-        ),
+            children: taskCountList.map((e) {
+          return TaskSummaryCard(
+            title: (e.sId ?? 'Unknown').toUpperCase(),
+            taskCount: e.sum.toString(),
+          );
+        }).toList()),
       ),
     );
   }
@@ -140,8 +142,8 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
             context, response.errorMessage ?? 'Unable to Get Status Count');
       }
     }
-    _getTaskCountByStatusInProgress =false;
-    if(mounted){
+    _getTaskCountByStatusInProgress = false;
+    if (mounted) {
       setState(() {});
     }
   }

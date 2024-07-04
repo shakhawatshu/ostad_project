@@ -1,7 +1,12 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:ostad_project/data/network_caller/network_caller.dart';
+import 'package:ostad_project/data/network_caller/network_response.dart';
+import 'package:ostad_project/data/network_path_url/urls.dart';
 import 'package:ostad_project/ui/screens/auth/pin_verification_screen.dart';
 import 'package:ostad_project/ui/widget/background_widget.dart';
+import 'package:ostad_project/ui/widget/circle_progress_indicator_widget.dart';
+import 'package:ostad_project/ui/widget/snackbar.dart';
 import 'package:ostad_project/utility/app_constants.dart';
 import 'package:ostad_project/utility/app_design_data.dart';
 
@@ -14,6 +19,7 @@ class ForgetPasswordScreen extends StatefulWidget {
 
 final TextEditingController _emailTEController = TextEditingController();
 final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+bool _emailVerificationInProgress = false;
 
 class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
   @override
@@ -54,10 +60,11 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                             hintText: 'Email',
                           ),
                           validator: (String? value) {
-                            if(value?.trim().isEmpty ?? true){
+                            if (value?.trim().isEmpty ?? true) {
                               return 'Enter Email';
                             }
-                            if(AppConstants.emailRegEx.hasMatch(value!) == false){
+                            if (AppConstants.emailRegEx.hasMatch(value!) ==
+                                false) {
                               return 'Enter valid Email';
                             }
                             return null;
@@ -66,13 +73,18 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                         const SizedBox(
                           height: 26,
                         ),
-                        ElevatedButton(
-                          onPressed: (){
-                            if(_formKey.currentState!.validate()){
-
-                            }
-                          },
-                          child: const Icon(Icons.arrow_circle_right_outlined),
+                        Visibility(
+                          visible: _emailVerificationInProgress == false,
+                          replacement: const CircleProgressIndicatorWidget(),
+                          child: ElevatedButton(
+                            onPressed: () {
+                              if (_formKey.currentState!.validate()) {
+                                _emailVerificationApi();
+                              }
+                            },
+                            child:
+                                const Icon(Icons.arrow_circle_right_outlined),
+                          ),
                         ),
                       ],
                     ),
@@ -112,22 +124,42 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
     );
   }
 
+  Future<void> _emailVerificationApi() async {
+    _emailVerificationInProgress = true;
+    if (mounted) {
+      setState(() {});
+    }
+    final String requestUrl =
+        Urls.emailVerificationUrl + _emailTEController.text.trim();
+    final NetworkResponse response = await NetworkCaller.getRequest(requestUrl);
+    if (response.isSuccess) {
+      _emailVerificationInProgress = false;
+      if (mounted) {
+        setState(() {
+          showSnackBarMessage(context, 'Otp code send to your email');
+        });
+        _gotoPinVerificationScreen();
+      }
+    } else {
+      if (mounted) {
+        showSnackBarMessage(context, 'Email Verification Failed!');
+      }
+    }
+  }
+
   void _gotoSignInScreen() {
     Navigator.pop(context);
   }
 
-  void _gotoPinVerificationScreen(){
+  void _gotoPinVerificationScreen() {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => const PinVerificationScreen(),
+        builder: (context) => PinVerificationScreen(
+          userEmail: _emailTEController.text,
+        ),
       ),
     );
   }
 
-  @override
-  void dispose() {
-    _emailTEController.dispose();
-    super.dispose();
-  }
 }

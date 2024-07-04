@@ -9,5 +9,11 @@ class Urls {
   static const String inProgressTaskListURL = '$_baseUrl/listTaskByStatus/Progress';
   static const String taskCountByStatusUrl = '$_baseUrl/taskStatusCount';
   static const String updateProfileUrl = '$_baseUrl/profileUpdate';
+  static const String emailVerificationUrl = '$_baseUrl/RecoverVerifyEmail/';
+  static const String pinVerificationUrl = '$_baseUrl/RecoverVerifyOtp/';
+  static const String resetPasswordUrl = '$_baseUrl/RecoverResetPass';
+  static  String deleteTaskUrl(String id) => '$_baseUrl/deleteTask/$id';
+
+
 
 }

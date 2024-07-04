@@ -42,7 +42,12 @@ class _InProgressTaskScreenState extends State<InProgressTaskScreen> {
             child: ListView.builder(
               itemCount: inProgressTaskList.length,
               itemBuilder: (context, index) {
-                return TaskItemCard(taskListModel: inProgressTaskList[index],);
+                return TaskItemCard(
+                  taskListModel: inProgressTaskList[index],
+                  onUpdateTask: () {
+                    _inProgressTaskListApi();
+                  },
+                );
               },
             ),
           ),
