@@ -131,11 +131,13 @@ class _PinVerificationScreenState extends State<PinVerificationScreen> {
     if (mounted) {
       setState(() {});
     }
-    final String requestUrl =
-        '${Urls.pinVerificationUrl}${widget.userEmail}/${_pinTEController.text.trim()}';
-    final NetworkResponse response = await NetworkCaller.getRequest(requestUrl);
-    if (response
-        .isSuccess && response.responseData['status'] == 'success') {
+    final NetworkResponse response = await NetworkCaller.getRequest(
+      Urls.pinVerificationUrl(
+        widget.userEmail,
+        _pinTEController.text.trim(),
+      ),
+    );
+    if (response.isSuccess && response.responseData['status'] == 'success') {
       if (mounted) {
         showSnackBarMessage(context, 'Pin Matched');
       }

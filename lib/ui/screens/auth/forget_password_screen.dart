@@ -129,9 +129,9 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
     if (mounted) {
       setState(() {});
     }
-    final String requestUrl =
-        Urls.emailVerificationUrl + _emailTEController.text.trim();
-    final NetworkResponse response = await NetworkCaller.getRequest(requestUrl);
+
+    final NetworkResponse response = await NetworkCaller.getRequest(
+        Urls.emailVerificationUrl(_emailTEController.text));
     if (response.isSuccess) {
       _emailVerificationInProgress = false;
       if (mounted) {
@@ -161,5 +161,4 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
       ),
     );
   }
-
 }

@@ -20,13 +20,23 @@ class TaskItemCard extends StatefulWidget {
   State<TaskItemCard> createState() => _TaskItemCardState();
 }
 
-bool _taskDeleteInProgress = false;
-
 class _TaskItemCardState extends State<TaskItemCard> {
+  bool _taskDeleteInProgress = false;
+  bool _taskStatusUpdateInProgress = false;
+
+  String popUpMenuButtonValue = '';
+  List<String> statusList = ['new', 'completed', 'progress', 'cancelled'];
+
+  @override
+  void initState() {
+    super.initState();
+    popUpMenuButtonValue = widget.taskListModel.status!;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 0,
+      elevation: 3,
       color: Colors.white,
       child: ListTile(
         title: Text(
@@ -41,8 +51,8 @@ class _TaskItemCardState extends State<TaskItemCard> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Chip(
-                  label: Text('New'),
+                Chip(
+                  label: Text(widget.taskListModel.status!),
                 ),
                 ButtonBar(
                   children: [
@@ -53,7 +63,33 @@ class _TaskItemCardState extends State<TaskItemCard> {
                           onPressed: _deleteTaskApi,
                           icon: const Icon(Icons.delete_forever_outlined)),
                     ),
-                    IconButton(onPressed: () {}, icon: const Icon(Icons.edit)),
+                    Visibility(
+                      visible: _taskStatusUpdateInProgress == false,
+                      replacement: const CircleProgressIndicatorWidget(),
+                      child: PopupMenuButton<String>(
+                        icon: const Icon(Icons.edit),
+                        onSelected: (String selectedValue) {
+                          popUpMenuButtonValue = selectedValue;
+                          if (mounted) {
+                            setState(() {});
+                          }
+                          _updateTaskStatusApi();
+                        },
+                        itemBuilder: (BuildContext context) {
+                          return statusList.map((String value) {
+                            return PopupMenuItem<String>(
+                              value: value,
+                              child: ListTile(
+                                title: Text(value),
+                                trailing: popUpMenuButtonValue == value
+                                    ? const Icon(Icons.done)
+                                    : null,
+                              ),
+                            );
+                          }).toList();
+                        },
+                      ),
+                    ),
                   ],
                 ),
               ],
@@ -74,7 +110,7 @@ class _TaskItemCardState extends State<TaskItemCard> {
     );
     if (response.isSuccess) {
       widget.onUpdateTask();
-      if(mounted){
+      if (mounted) {
         showSnackBarMessage(context, 'Task deleted');
       }
     } else {
@@ -83,7 +119,31 @@ class _TaskItemCardState extends State<TaskItemCard> {
       }
     }
     _taskDeleteInProgress = false;
-    if(mounted){
+    if (mounted) {
+      setState(() {});
+    }
+  }
+
+  Future<void> _updateTaskStatusApi() async {
+    _taskStatusUpdateInProgress = true;
+    if (mounted) {
+      setState(() {});
+    }
+    final NetworkResponse response = await NetworkCaller.getRequest(
+      Urls.changeTaskStatusUrl(widget.taskListModel.sId!, popUpMenuButtonValue),
+    );
+    if (response.isSuccess) {
+      if (mounted) {
+        showSnackBarMessage(context, 'Task status updated');
+      }
+      widget.onUpdateTask();
+    } else {
+      if (mounted) {
+        showSnackBarMessage(context, 'Change task Status failed');
+      }
+    }
+    _taskStatusUpdateInProgress = false;
+    if (mounted) {
       setState(() {});
     }
   }
