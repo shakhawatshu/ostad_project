@@ -23,7 +23,8 @@ class SetPassWordScreen extends StatefulWidget {
 final TextEditingController _passwordTEController = TextEditingController();
 final TextEditingController _passwordConfirmTEController =
     TextEditingController();
-bool _setPasswordImProgress = false;
+bool _setPasswordInProgress = false;
+bool _showPassword = false;
 
 class _SetPassWordScreenState extends State<SetPassWordScreen> {
   @override
@@ -55,8 +56,10 @@ class _SetPassWordScreenState extends State<SetPassWordScreen> {
                     height: 15,
                   ),
                   TextFormField(
+                    obscureText: _showPassword == false,
                     controller: _passwordTEController,
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
+                      suffixIcon: _buildPasswordVisibleButton(),
                       hintText: 'Password',
                     ),
                   ),
@@ -64,8 +67,10 @@ class _SetPassWordScreenState extends State<SetPassWordScreen> {
                     height: 12,
                   ),
                   TextFormField(
+                    obscureText: _showPassword == false,
                     controller: _passwordConfirmTEController,
-                    decoration: const InputDecoration(
+                    decoration:  InputDecoration(
+                      suffixIcon: _buildPasswordVisibleButton(),
                       hintText: 'Confirm Password',
                     ),
                   ),
@@ -73,7 +78,7 @@ class _SetPassWordScreenState extends State<SetPassWordScreen> {
                     height: 26,
                   ),
                   Visibility(
-                    visible: _setPasswordImProgress == false,
+                    visible: _setPasswordInProgress == false,
                     replacement: const CircleProgressIndicatorWidget(),
                     child: ElevatedButton(
                       onPressed: () {
@@ -82,7 +87,8 @@ class _SetPassWordScreenState extends State<SetPassWordScreen> {
                           _resetPasswordApi();
                         } else {
                           if (mounted) {
-                            showSnackBarMessage(context, 'Password do not match');
+                            showSnackBarMessage(
+                                context, 'Password do not match');
                           }
                         }
                       },
@@ -123,8 +129,22 @@ class _SetPassWordScreenState extends State<SetPassWordScreen> {
     );
   }
 
+  IconButton _buildPasswordVisibleButton() {
+    return IconButton(
+                      onPressed: () {
+                        _showPassword = !_showPassword;
+                        if (mounted) {
+                          setState(() {});
+                        }
+                      },
+                      icon: Icon(_showPassword
+                          ? Icons.remove_red_eye
+                          : Icons.visibility_off),
+                    );
+  }
+
   Future<void> _resetPasswordApi() async {
-    _setPasswordImProgress = true;
+    _setPasswordInProgress = true;
     if (mounted) {
       setState(() {});
     }
@@ -138,20 +158,19 @@ class _SetPassWordScreenState extends State<SetPassWordScreen> {
     final NetworkResponse response = await NetworkCaller.postRequest(
         Urls.resetPasswordUrl,
         body: requestBody);
-    if(response.isSuccess && response.responseData['status'] == 'success'){
-      if(mounted){
+    if (response.isSuccess && response.responseData['status'] == 'success') {
+      if (mounted) {
         showSnackBarMessage(context, 'Reset password successfully');
       }
       _gotoSignInScreen();
-    }else{
-      if(mounted){
+    } else {
+      if (mounted) {
         showSnackBarMessage(context, 'Reset password Failed!');
       }
     }
-    _setPasswordImProgress = false;
-    if(mounted){
-      setState(() {
-      });
+    _setPasswordInProgress = false;
+    if (mounted) {
+      setState(() {});
     }
   }
 

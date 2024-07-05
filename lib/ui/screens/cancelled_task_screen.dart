@@ -44,7 +44,7 @@ class _CancelledTaskScreenState extends State<CancelledTaskScreen> {
               itemBuilder: (context, index) {
                 return TaskItemCard(
                   taskListModel: cancelTaskList[index],
-                  onUpdateTask: () {_getCancelledTaskApi();},
+                  onUpdateTask:_getCancelledTaskApi,
                 );
               },
             ),

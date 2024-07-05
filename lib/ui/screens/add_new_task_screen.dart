@@ -107,7 +107,7 @@ class _AddNewTaskScreenState extends State<AddNewTaskScreen> {
     Map<String, dynamic> requestInput = {
       "title": _titleTEController.text,
       "description": _descriptionTEController.text,
-      "status": "New"
+      "status": "new"
     };
     NetworkResponse response = await NetworkCaller.postRequest(
       Urls.addNewTask,
